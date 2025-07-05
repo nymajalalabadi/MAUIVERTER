@@ -25,7 +25,9 @@
                        Text="100"
                        TextColor="{StaticResource TextColor}"/>
 
-                <Picker HorizontalTextAlignment="Center" TextColor="{StaticResource TextColor}"/>
+                <Picker HorizontalTextAlignment="Center" TextColor="{StaticResource TextColor}" 
+                        ItemsSource="{Binding FormMeasures}"
+                        SelectedItem="{Binding CurrentFormMeasure}"/>
 
             </VerticalStackLayout>
             
@@ -40,7 +42,9 @@
                         Text="100"
                         TextColor="{StaticResource TextColor}"/>
 
-                <Picker HorizontalTextAlignment="Center" TextColor="{StaticResource TextColor}"/>
+                <Picker HorizontalTextAlignment="Center" TextColor="{StaticResource TextColor}"
+                        ItemsSource="{Binding ToMeasures}"
+                        SelectedItem="{Binding CurrentToMeasure}"/>
 
             </VerticalStackLayout>
             
