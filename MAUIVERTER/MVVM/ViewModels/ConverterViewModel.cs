@@ -1,39 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using PropertyChanged;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
 using UnitsNet;
 
 namespace MAUIVERTER.MVVM.ViewModels
 {
+    [AddINotifyPropertyChangedInterface]
     public class ConverterViewModel
     {
         #region Consractors
 
-        public ConverterViewModel()
+        public ConverterViewModel(string quanityName)
         {
-            QuanityName = "Length"; // Default quantity
-            FormMeasures = loadMeasures();
+            QuanityName = quanityName; // Default quantity
+            FromMeasures = loadMeasures();
             ToMeasures = loadMeasures();
-            CurrentFormMeasure = "Meter"; // Default from measure
-            CurrentToMeasure = "Centimeter"; // Default to measure
+            CurrentFromMeasure = FromMeasures.FirstOrDefault(); // Default from measure
+            CurrentToMeasure = ToMeasures.Skip(1).FirstOrDefault(); // Default to measure
+            Convert();
         }
 
         #endregion
 
         public string QuanityName { get; set; }
 
-        public ObservableCollection<string> FormMeasures { get; set; }
+        public ObservableCollection<string> FromMeasures { get; set; }
 
         public ObservableCollection<string> ToMeasures { get; set; }
 
-        public string CurrentFormMeasure { get; set; }
+        public string CurrentFromMeasure { get; set; }
 
         public string CurrentToMeasure { get; set; }
 
+        public double FromValue { get; set; } = 1;
 
+        public double ToValue { get; set; }
+
+
+
+        public ICommand ReturnCommand => new Command(() =>
+        {
+            Convert();
+        });
+
+
+        public void Convert()
+        {
+            var result = UnitConverter.ConvertByName(FromValue, QuanityName, CurrentFormMeasure, CurrentToMeasure);
+
+            ToValue = result;
+        }
 
         private ObservableCollection<string> loadMeasures()
         {

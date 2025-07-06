@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUIVERTER.MVVM.Views.ConverterView"
-             Title="ConverterView">
+             Title="{Binding QuanityName}">
     
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -22,12 +22,14 @@
 
                 <Entry FontSize="100"
                        HorizontalTextAlignment="Center"
-                       Text="100"
-                       TextColor="{StaticResource TextColor}"/>
+                       Text="{Binding FromValue}"
+                       TextColor="{StaticResource TextColor}"
+                       ReturnCommand="{Binding ReturnCommand}"/>
 
                 <Picker HorizontalTextAlignment="Center" TextColor="{StaticResource TextColor}" 
-                        ItemsSource="{Binding FormMeasures}"
-                        SelectedItem="{Binding CurrentFormMeasure}"/>
+                        ItemsSource="{Binding FromMeasures}"
+                        SelectedItem="{Binding CurrentFromMeasure}"
+                        SelectedIndexChanged="Picker_SelectedIndexChanged"/>
 
             </VerticalStackLayout>
             
@@ -39,12 +41,13 @@
 
                 <Label FontSize="100"
                         HorizontalTextAlignment="Center"
-                        Text="100"
+                        Text="{Binding ToValue, StringFormat='{0:0.##}'}"
                         TextColor="{StaticResource TextColor}"/>
 
                 <Picker HorizontalTextAlignment="Center" TextColor="{StaticResource TextColor}"
                         ItemsSource="{Binding ToMeasures}"
-                        SelectedItem="{Binding CurrentToMeasure}"/>
+                        SelectedItem="{Binding CurrentToMeasure}"
+                        SelectedIndexChanged="Picker_SelectedIndexChanged"/>
 
             </VerticalStackLayout>
             
